@@ -1,0 +1,45 @@
+docker build -t videoforgery .
+
+docker run --restart always -d -p 80:161207 videoforgery
+
+-----------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+
+#TOOLS
+cmd >$ docker image ls                                       --(helps you see all the images)
+cmd >$ docker ps -a                                          --(shows all containers)
+cmd >$ docker run -it videoforgery                --(runs docker, with user interface, interactive, cmd)
+
+cmd >$ docker stop videoforgery                   --(Stop the container)
+
+cmd >$ docker rm videoforgery                     --(Remove the container to prevent auto-restart)
+
+
+
+docker stop $(docker ps -q) ; docker container prune -f ; docker image prune -a -f
+
+-----------------------------------------------------------------------------------------------------------------
+
+#PUSHING
+
+docker build -t videoforgery .; docker tag videoforgery unclezann/videoforgery; docker login;
+docker push unclezann/videoforgery
+
+-----------------------------------------------------------------------------------------------------------------
+
+#For starting a new server, the installation process.
+
+sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && sudo apt update && sudo apt install -y docker-ce
+sudo systemctl start docker
+
+docker pull unclezann/videoforgery
+docker run --restart always -d -p 80:161207 unclezann/videoforgery
+
+
+-----------------------------------------------------------------------------------------------------------------
+SERVER:
+
+
+docker stop $(docker ps -q) ; docker container prune -f ; docker image prune -a -f;
+docker pull unclezann/videoforgery;
+docker run --restart always -d -p 80:161207 unclezann/videoforgery
